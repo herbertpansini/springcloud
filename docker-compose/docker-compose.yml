@@ -3,6 +3,8 @@ version: '3.5'
 services: 
     config-server:
         image: config-server:v1
+        build:
+            context: ../springboot-servicio-config-server
         ports: 
             - "8888:8888"
         restart: always
@@ -10,6 +12,8 @@ services:
             - springcloud
     servicio-eureka-server:
         image: servicio-eureka-server:v1
+        build:
+            context: ../springboot-servicio-eureka-server
         ports: 
             - "8761:8761"
         restart: always
@@ -37,6 +41,8 @@ services:
             POSTGRES_PASSWORD: postgres
     servicio-productos:
         image: servicio-productos:v1
+        build:
+            context: ../springboot-servicio-productos
         restart: always
         networks:
             - springcloud
@@ -46,6 +52,8 @@ services:
             - microservicios-mysql8
     servicio-items:        
         image: servicio-items:v1
+        build:
+            context: ../springboot-servicio-item
         ports:
             - "8002:8002"
             - "8005:8005"
@@ -58,7 +66,9 @@ services:
             - servicio-eureka-server
             - servicio-productos
     servicio-usuarios:
-        image: servicio-usuarios:v1        
+        image: servicio-usuarios:v1    
+        build:
+            context: ../springboot-servicio-usuarios   
         restart: always        
         networks:
             - springcloud
@@ -67,7 +77,9 @@ services:
             - servicio-eureka-server
             - microservicios-postgres12
     servicio-oauth:        
-        image: servicio-oauth:v1        
+        image: servicio-oauth:v1 
+        build:
+            context: ../springboot-servicio-oauth      
         ports:            
             - "9100:9100"
         restart: always
@@ -79,6 +91,8 @@ services:
             - servicio-usuarios
     servicio-zuul-server:
         image: servicio-zuul-server:v1
+        build:
+            context: ../springboot-servicio-zuul-server
         ports: 
             - "8090:8090"
         restart: always
@@ -101,6 +115,8 @@ services:
             - springcloud
     zipkin-server:
         image: zipkin-server:v1
+        build:
+            context: ../zipkin-server
         ports:            
             - "9411:9411"
         restart: always
